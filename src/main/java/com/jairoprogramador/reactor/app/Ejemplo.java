@@ -11,8 +11,9 @@ public class Ejemplo {
 
     private static final Logger log = LoggerFactory.getLogger(Ejemplo.class);
     public void execute(){
-        Flux<Usuario> nombres = Flux.just("Andres", "Daniel", "Pedro", "Miguel", "Jose", "")
+        Flux<Usuario> nombres = Flux.just("Andres", "Daniel", "Pedro", "Miguel", "Jose", "Daniel Juan", "Pedro Yonatan")
                 .map(nombre -> new Usuario(nombre.toUpperCase(), null))
+                .filter(usuario -> usuario.getNombre().contains("DANIEL"))
                 .doOnNext( usuario -> {
                     if(usuario == null || usuario.getNombre().isEmpty()){
                         throw new RuntimeException("Usuario no puede ser null");
