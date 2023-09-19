@@ -23,14 +23,8 @@ public class Ejemplo {
                 new Usuario("Pedro Yonatan", "Torres"));
 
         Flux.fromIterable(usuarios)
-                .map(usuario -> usuario.toString())
-                .flatMap(nombre -> {
-                    if(nombre.contains("Daniel")){
-                        return Mono.just(nombre);
-                    }
-                    return Mono.empty();
-                })
-                .subscribe(usuario -> log.info(usuario.toString())
+                .collectList()
+                .subscribe(lista -> log.info(lista.toString())
                 );
     }
 }
