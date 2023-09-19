@@ -5,12 +5,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Ejemplo {
 
     private static final Logger log = LoggerFactory.getLogger(Ejemplo.class);
     public void execute(){
-        Flux<String> nombres = Flux.just("Andres", "Daniel", "Pedro", "Miguel", "Jose", "Daniel Juan", "Pedro Yonatan");
+        List<String> nombresList = Arrays.asList("Andres", "Daniel", "Pedro", "Miguel", "Jose", "Daniel Juan", "Pedro Yonatan");
 
+        Flux<String> nombres = Flux.fromIterable(nombresList);
         nombres.map(nombre -> new Usuario(nombre.toUpperCase(), null))
                 .filter(usuario -> usuario.getNombre().contains("DANIEL"))
                 .doOnNext( usuario -> {
