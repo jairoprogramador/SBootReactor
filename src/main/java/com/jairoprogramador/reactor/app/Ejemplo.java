@@ -13,13 +13,20 @@ public class Ejemplo {
 
     private static final Logger log = LoggerFactory.getLogger(Ejemplo.class);
     public void execute(){
-        List<String> nombresList = Arrays.asList("Andres", "Daniel", "Pedro", "Miguel", "Jose", "Daniel Juan", "Pedro Yonatan");
+        List<Usuario> usuarios = Arrays.asList(
+                new Usuario("Andres", "Valle"),
+                new Usuario("Daniel", "Jimenez"),
+                new Usuario("Pedro", "Saavedra"),
+                new Usuario("Miguel", "Montes"),
+                new Usuario("Jose", "Chang"),
+                new Usuario("Daniel Juan", "Ortiz"),
+                new Usuario("Pedro Yonatan", "Torres"));
 
-        Flux.fromIterable(nombresList)
-                .map(nombre -> new Usuario(nombre.toUpperCase(), null))
-                .flatMap(usuario -> {
-                    if(usuario.getNombre().contains("DANIEL")){
-                        return Mono.just(usuario);
+        Flux.fromIterable(usuarios)
+                .map(usuario -> usuario.toString())
+                .flatMap(nombre -> {
+                    if(nombre.contains("Daniel")){
+                        return Mono.just(nombre);
                     }
                     return Mono.empty();
                 })
